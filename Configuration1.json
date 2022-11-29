@@ -1,0 +1,16 @@
+{
+    "seed_name":"Automation Script Seed",
+    "neg_seed_name":["123","@#$$@!!@$","12@@45"],
+    "seed_density":"10",
+    "neg_seed_density":["abc","@@@","a!3"],
+    "seeding_rate":"20",    
+    "neg_seeding_rate":["abc","@@@","a!0"],
+    "field_name":"automation script field",
+    "neg_field_name":["1234567","@#$%^&*()","@!@125$#%"],
+    "seed_selection": "Red Clover",
+    "mix":"100",
+    "seed_rate":"40",
+    "front_camera_angle":"15°",
+    "left_camera_angle":"15°",
+    "right_camera_angle":"15°"
+}

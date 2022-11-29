@@ -1,0 +1,23 @@
+{
+    "close_settings_screen" :"2",
+    "robot_type":"Phenotype",
+    "launch_drive_screen" : "2",
+    "move_robot_while_recording":"1",
+    "compass_icon_multiple_clicks":"1",
+    "exit_gps_screen":"10",
+    "exit_mission_screen":"10",
+    "robot_icon_multiple_clicks":"1",
+    "click_on_robot_info_multiple_times":"5",
+    "blank_field_name":"",
+    "spaces_field_name":"  ",
+    "special_characters_field_name":"$#%@!$^^",
+    "max_characters":"qwertyuiopasdfghjklzxcvbnm1234",
+    "field_name":"aautomation_script_field",
+    "special_characters_wpt_name":"$#%@!$^^",
+    "wpt_name":"aautomation_script_wpt",
+    "column1":"1",
+    "column2":"2",
+    "range1":"1",
+    "range2":"2"
+
+}

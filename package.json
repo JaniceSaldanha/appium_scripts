@@ -1,0 +1,12 @@
+{
+  "dependencies": {
+    "colors": "^1.4.0",
+    "fs": "^0.0.1-security",
+    "get-xpath": "^3.0.1",
+    "keycode": "^2.2.1",
+    "moment": "^2.29.4",
+    "sleep-promise": "^9.1.0",
+    "sqlite3": "^5.1.2",
+    "webdriverio": "^7.25.4"
+  }
+}
