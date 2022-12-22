@@ -59,26 +59,7 @@ async function main () {
 
   await waitForActivity(client);
 
-  /****************************** Mission Creation *********************/
-
-//To check if the user can view the FAB button
-var timeStart = (new Date()).getTime();
-const fab_button_view = await findItemById(client,"android.widget.ImageButton","fab_create")
-var timeEnd = (new Date()).getTime();
-
-if(fab_button_view !== null){
-  total_testcases++;
-  pass_testcases++;
-  testcase_name("TMax","Mission:To check if the user can view the FAB button","Pass",(((timeEnd-timeStart)% 60000) / 1000).toFixed(2))
-  console.log(colors.yellow("Pass"))
-  } else{
-    total_testcases++;
-    fail_testcases++;
-      testcase_name("TMax","Mission:To check if the user can view the FAB button","Fail",(((timeEnd-timeStart)% 60000) / 1000).toFixed(2))
-      console.log(colors.red("Fail"))
-  }
-
-
+  await waitForActivity(client);
 //To check if the user can click on the FAB button
 var timeStart = (new Date()).getTime();
 const fab_button_click= await findItemById(client,"android.widget.ImageButton","fab_create")
@@ -86,120 +67,366 @@ await fab_button_click.click()
 
 var timeEnd = (new Date()).getTime();
 
-if(fab_button_click !== null){
+//To check if the user can click on mission icon in the fab list
+var timeStart = (new Date()).getTime();
+const mission_button_click= await findItemById(client,"android.widget.ImageView","fab_create_mission")
+await mission_button_click.click()
+await waitForActivity(client)
+var timeEnd = (new Date()).getTime();
+
+
+
+//To check if user can click on the Edit icon near set field
+var timeStart = (new Date()).getTime();
+await sleep(5000)
+  const edit_field_name_click= await findItemById(client,"android.widget.ImageView","imv_field_edit")
+  await edit_field_name_click.click()
+  var timeEnd = (new Date()).getTime();
+  
+   //To check if user can click on Create new field
+   var timeStart = (new Date()).getTime();
+   const click_create_new_field= await findItemById(client,"android.widget.TextView","tv_create_new")
+   await click_create_new_field.click()
+   var timeEnd = (new Date()).getTime();
+
+   var timeStart = (new Date()).getTime();
+ const valid_field_name= await findItemById(client,"android.widget.EditText","et_create_new")
+ await setValueEditText(client,valid_field_name,obj.field_name)
+ console.log(colors.red("Click on Assign"))
+ const assign4= await findItemById(client,"android.widget.TextView","tv_assign_field")
+ await assign4.click()
+ var timeEnd = (new Date()).getTime();
+
+ //To check if user can click on the Edit icon near Set Waypoint Path Name
+var timeStart = (new Date()).getTime();
+await sleep(5000)
+  const edit_wpt_name_click= await findItemById(client,"android.widget.ImageView","imv_gps_map_edit")
+  await edit_wpt_name_click.click()
+  var timeEnd = (new Date()).getTime();
+
+  //To check if user can click on create new Waypoint Path
+  var timeStart = (new Date()).getTime();
+  const click_create_new_wpt= await findItemById(client,"android.widget.TextView","tv_create_new")
+  await click_create_new_wpt.click()
+  var timeEnd = (new Date()).getTime();
+
+  var timeStart = (new Date()).getTime();
+const valid_wpt_name= await findItemById(client,"android.widget.EditText","et_create_new")
+await setValueEditText(client,valid_wpt_name,obj.wpt_name)
+console.log(colors.red("Click on Assign"))
+const assign_4= await findItemById(client,"android.widget.TextView","tv_assign_field")
+await assign_4.click()
+var timeEnd = (new Date()).getTime();
+
+
+//To check if user can click on robot settings icon
+var timeStart = (new Date()).getTime();
+console.log(colors.red("Robot Settings icon"))
+var robot_settings_icon1 = await findItemById(client,"android.widget.ImageView","iv_settings")
+await clickItem(client,robot_settings_icon1);
+var timeEnd = (new Date()).getTime();
+
+var timeStart = (new Date()).getTime();
+console.log(colors.red("Adjust Forward Drive speed"))
+var forward_drive = await findItemById(client,"android.widget.SeekBar","slider_forward_drive")
+await holdTouchByPercentage(client,forward_drive,50,20,5)
+await waitForActivity(client)
+var timeEnd = (new Date()).getTime();
+
+var timeStart = (new Date()).getTime();
+console.log(colors.red("Adjust Turning speed"))
+var turning_speed = await findItemById(client,"android.widget.SeekBar","slider_turning_drive")
+await holdTouchByPercentage(client,turning_speed,50,20,5)
+await waitForActivity(client)
+var timeEnd = (new Date()).getTime();
+
+var timeStart = (new Date()).getTime();
+console.log("Click on X button")
+var close_robot_setting = await findItemById(client,"android.widget.ImageView","iv_close_settings2")
+await close_robot_setting.click()
+var timeEnd = (new Date()).getTime();
+
+
+//To check if RTK value is displayed to create a waypoint mission
+var timeStart = (new Date()).getTime();
+await sleep(5000) //waiting for rtk value to appear
+const check_gps_value= await findItemById(client,"android.widget.TextView","tv_gps")
+const convert_gps_text= await check_gps_value.getText()
+console.log(colors.red(convert_gps_text))
+var timeEnd = (new Date()).getTime();
+
+if(convert_gps_text !== "--")
+{
   total_testcases++;
   pass_testcases++;
-  testcase_name("TMax","Mission:To check if the user can click on the FAB button","Pass",(((timeEnd-timeStart)% 60000) / 1000).toFixed(2))
+  testcase_name("TMax","Mission:To check if Gps RTK value is visible on the screen","Pass",(((timeEnd-timeStart)% 60000) / 1000).toFixed(2))
   console.log(colors.yellow("Pass"))
-  } else{
-    total_testcases++;
-    fail_testcases++;
-      testcase_name("TMax","Mission:To check if the user can click on the FAB button","Fail",(((timeEnd-timeStart)% 60000) / 1000).toFixed(2))
-      console.log(colors.red("Fail"))
+  }
+  else
+  {
+  total_testcases++;
+  fail_testcases++;
+  testcase_name("TMax","Mission:To check if Gps RTK value is visible on the screen","Fail",(((timeEnd-timeStart)% 60000) / 1000).toFixed(2))
+  console.log(colors.red("Fail"))
   }
 
 
-  //To check if the user can view mission icon in the fab list
-  var timeStart = (new Date()).getTime();
-  const mission_button_view= await findItemById(client,"android.widget.ImageView","fab_create_mission")
- 
-  var timeEnd = (new Date()).getTime();
-  
-  if(mission_button_view !== null){
-    total_testcases++;
-    pass_testcases++;
-    testcase_name("TMax","Mission:To check if the user can view mission icon in the fab list","Pass",(((timeEnd-timeStart)% 60000) / 1000).toFixed(2))
-    console.log(colors.yellow("Pass"))
-    } else{
-      total_testcases++;
-      fail_testcases++;
-        testcase_name("TMax","Mission:To check if the user can view mission icon in the fab list","Fail",(((timeEnd-timeStart)% 60000) / 1000).toFixed(2))
-        console.log(colors.red("Fail"))
-    }
-  
- 
-  //To check if the user can click on mission icon in the fab list
-  var timeStart = (new Date()).getTime();
-  const mission_button_click= await findItemById(client,"android.widget.ImageView","fab_create_mission")
-  await mission_button_click.click()
-  await waitForActivity(client)
-  var timeEnd = (new Date()).getTime();
-  
-  if(mission_button_click !== null){
-    total_testcases++;
-    pass_testcases++;
-    testcase_name("TMax","Mission:To check if the user can click on mission icon in the fab list","Pass",(((timeEnd-timeStart)% 60000) / 1000).toFixed(2))
-    console.log(colors.yellow("Pass"))
-    } else{
-      total_testcases++;
-      fail_testcases++;
-        testcase_name("TMax","Mission:To check if the user can click on mission icon in the fab list","Fail",(((timeEnd-timeStart)% 60000) / 1000).toFixed(2))
-        console.log(colors.red("Fail"))
-    }
-  
-
-//To check if user can view the mission screen
+//To check if user can view Add Data point
 var timeStart = (new Date()).getTime();
-const element_on_mission_screen= await findItemById(client,"android.widget.RelativeLayout","rl_orient_map")
+const add_data_point_view= await findItemById(client,"android.widget.ImageView","imv_add_point_icon")
 var timeEnd = (new Date()).getTime();
 
-if(element_on_mission_screen !== null){
+if(add_data_point_view !== null)
+{
   total_testcases++;
   pass_testcases++;
-  testcase_name("TMax","Mission:To check if user can view the mission screen","Pass",(((timeEnd-timeStart)% 60000) / 1000).toFixed(2))
+  testcase_name("TMax","Mission:To check if user can view Add Data point","Pass",(((timeEnd-timeStart)% 60000) / 1000).toFixed(2))
   console.log(colors.yellow("Pass"))
-  } else{
-    total_testcases++;
-    fail_testcases++;
-      testcase_name("TMax","Mission:To check if user can view the mission screen","Fail",(((timeEnd-timeStart)% 60000) / 1000).toFixed(2))
-      console.log(colors.red("Fail"))
+  }
+  else
+  {
+  total_testcases++;
+  fail_testcases++;
+  testcase_name("TMax","Mission:To check if user can view Add Data point","Fail",(((timeEnd-timeStart)% 60000) / 1000).toFixed(2))
+  console.log(colors.red("Fail"))
+  }
+  
+//To check if user can click on Add data point
+var timeStart = (new Date()).getTime();
+const add_data_point_click= await findItemById(client,"android.widget.ImageView","imv_add_point_icon")
+var timeEnd = (new Date()).getTime();
+
+if(add_data_point_click !== null)
+{
+await add_data_point_click.click()
+await sleep(10000)
+  total_testcases++;
+  pass_testcases++;
+  testcase_name("TMax","Mission:To check if user can click Add Data point","Pass",(((timeEnd-timeStart)% 60000) / 1000).toFixed(2))
+  console.log(colors.yellow("Pass"))
+  }
+  else
+  {
+  total_testcases++;
+  fail_testcases++;
+  testcase_name("TMax","Mission:To check if user can click Add Data point","Fail",(((timeEnd-timeStart)% 60000) / 1000).toFixed(2))
+  console.log(colors.red("Fail"))
+  }
+  
+  
+//To check if user can view the waypoint plot position screen
+var timeStart = (new Date()).getTime();
+const check_waypoint_plot= await findItemByName(client,"android.widget.TextView","Waypoint in plot position") 
+var timeEnd = (new Date()).getTime();
+
+if(check_waypoint_plot !== null)
+{
+  total_testcases++;
+  pass_testcases++;
+  testcase_name("TMax","Mission:To check if user can view the waypoint plot position screen","Pass",(((timeEnd-timeStart)% 60000) / 1000).toFixed(2))
+  console.log(colors.yellow("Pass"))
+  }
+  else
+  {
+  total_testcases++;
+  fail_testcases++;
+  testcase_name("TMax","Mission:To check if user can view the waypoint plot position screen","Fail",(((timeEnd-timeStart)% 60000) / 1000).toFixed(2))
+  console.log(colors.red("Fail"))
   }
 
-
-//To check if the user can click on Compass icon multiple times
+  if(convert_gps_text !== "--")   //if there is no rtk value user cannot create a waypoint map. Hence checking that condition here
+  {
+//To check if user can create a gps path for the waypoint mission and save the mission
 var timeStart = (new Date()).getTime();
-for(var ci=0;ci<obj.compass_icon_multiple_clicks;ci++)
-{
-const compass_icon= await findItemById(client,"android.widget.RelativeLayout","rl_orient_map")
-await compass_icon.click()
-}
-var timeEnd = (new Date()).getTime();
-const compass_icon1= await findItemById(client,"android.widget.RelativeLayout","rl_orient_map") 
+const column_block = await findItemById(client,"android.widget.ImageView","selected_display")
+await column_block.click()
+await waitForActivity(client)
 
-if(compass_icon1 !== null){
-total_testcases++;
-pass_testcases++;
-testcase_name("TMax","Mission:To check if the user can click on Compass icon multiple times","Pass",(((timeEnd-timeStart)% 60000) / 1000).toFixed(2))
-console.log(colors.yellow("Pass"))
-} else{
+
+//Select column value
+const column_value= await findItemByName(client,"android.widget.TextView",obj.column1)
+console.log(column_value)
+await column_value.click()
+await waitForActivity(client)
+
+//Click on Save to save start range column value
+const save_1= await findItemByName(client,"android.widget.TextView","SAVE")
+await save_1.click()
+await waitForActivity(client)
+
+
+//Creating objects for left and right joysticks
+const driveActivity_leftJoystick1 = await findItemById(client, "android.widget.ImageView", "left_joystick_image");
+const driveActivity_rightJoystick1 = await findItemById(client, "android.widget.ImageView", "joystick_right_imv");
+
+await moveElementByPercentage(client, driveActivity_leftJoystick1, 70, 70, 70, 10, 6000); // move robot forward
+await sleep(2000)
+
+//Click on add data point to add the end range and column for the first collection
+const add_data_point_click1= await findItemById(client,"android.widget.ImageView","imv_add_point_icon")
+await add_data_point_click1.click()
+await sleep(10000)
+
+//Save the end range and column value for the first column
+const save_2= await findItemByName(client,"android.widget.TextView","SAVE")
+await save_2.click()
+await waitForActivity(client)
+
+//This is to move the robot to the 2nd column before we start recording the 2nd collection
+await moveElementByPercentage(client, driveActivity_rightJoystick1, 50, 50, 90, 50,4600);//Move robot right
+await sleep(2000)
+await moveElementByPercentage(client, driveActivity_leftJoystick1, 70, 70, 70, 10,3000); //again move robot forward
+await sleep(2000)
+await moveElementByPercentage(client, driveActivity_rightJoystick1, 50, 50, 90, 50,4900); //make robot straight
+await sleep(2000)
+
+//Click on Add data point icon to add the start range and column for the 2nd collection
+const add_data_point_click2= await findItemById(client,"android.widget.ImageView","imv_add_point_icon")
+await add_data_point_click2.click()
+await sleep(10000)
+
+//Click on Column block to select the start column value for the 2nd collection
+const column_block__ = await findItemById(client,"android.widget.ImageView","selected_display")
+await column_block__.click()
+await waitForActivity(client)
+
+//Select column value from the drop-down list
+const column_value2= await findItemByName(client,"android.widget.TextView",obj.column2)
+await column_value2.click()
+await waitForActivity(client)
+
+//Click on Save to save the range column value
+const save_3= await findItemByName(client,"android.widget.TextView","SAVE")
+await waitForActivity(client)
+await save_3.click()
+await waitForActivity(client)
+
+//Record the 2nd collection
+await moveElementByPercentage(client, driveActivity_leftJoystick1, 70, 70, 70, 10, 6000); //Move robot forward
+await sleep(2000)
+
+//Click on Add data point to add the end range column value for the 2nd collection
+const add_data_point_click3= await findItemById(client,"android.widget.ImageView","imv_add_point_icon")
+await add_data_point_click3.click()
+await sleep(10000)
+
+//Click on Save to save the end range and column value
+const save_4= await findItemByName(client,"android.widget.TextView","SAVE")
+await save_4.click()
+
+//This is to move the robot to the 3rd column before we start recording the 3rd collection
+await moveElementByPercentage(client, driveActivity_rightJoystick1, 50, 50, 10,50,4600); //Move robot to left
+await sleep(2000) 
+await moveElementByPercentage(client, driveActivity_leftJoystick1, 70, 70, 70, 10,3000); //again move robot forward
+await sleep(2000)
+await moveElementByPercentage(client, driveActivity_rightJoystick1, 50, 50, 10, 50,4900) //make robot straight
+await sleep(2000)
+
+const add_data_point_clickk2= await findItemById(client,"android.widget.ImageView","imv_add_point_icon")
+await add_data_point_clickk2.click()
+await sleep(10000)
+
+//Click on Column block to select the start column value for the 3rd collection
+const columnn_block_ = await findItemById(client,"android.widget.ImageView","selected_display")
+await columnn_block_.click()
+
+//Select column value from the drop-down list
+const column_value3= await findItemByName(client,"android.widget.TextView",obj.column3)
+await column_value3.click()
+await waitForActivity(client)
+
+//Click on Save to save the range column value
+const save_5= await findItemByName(client,"android.widget.TextView","SAVE")
+await waitForActivity(client)
+await save_5.click()
+await waitForActivity(client)
+
+//Record the 3rd collection
+await moveElementByPercentage(client, driveActivity_leftJoystick1, 70, 70, 70, 10, 6000); //Move robot forward
+await sleep(2000)
+
+//Click on Add data point to add the end range column value for the 3rd collection
+const add_data_point_click4= await findItemById(client,"android.widget.ImageView","imv_add_point_icon")
+await add_data_point_click4.click()
+await sleep(10000)
+
+//Click on Save to save the end range and column value
+const save_6= await findItemByName(client,"android.widget.TextView","SAVE")
+await save_6.click()
+
+//This is to move the robot to the 4th column before we start recording the 4th collection
+await moveElementByPercentage(client, driveActivity_rightJoystick1, 50, 50, 90, 50,4600);//Move robot right
+await sleep(2000)
+await moveElementByPercentage(client, driveActivity_leftJoystick1, 70, 70, 70, 10, 1500); //again move robot forward
+await sleep(2000)
+await moveElementByPercentage(client, driveActivity_rightJoystick1, 50, 50, 90, 50,4900); //make robot straight
+await sleep(2000)
+
+const add_data_point_clickk= await findItemById(client,"android.widget.ImageView","imv_add_point_icon")
+await add_data_point_clickk.click()
+await sleep(10000)
+
+//Click on Column block to select the start column value for the 4th collection
+const column_blockk_ = await findItemById(client,"android.widget.ImageView","selected_display")
+await column_blockk_.click()
+
+//Select column value from the drop-down list
+const column_value4= await findItemByName(client,"android.widget.TextView",obj.column4)
+await column_value4.click()
+await waitForActivity(client)
+
+//Click on Save to save the range column value
+await waitForActivity(client)
+const save_7= await findItemByName(client,"android.widget.TextView","SAVE")
+await waitForActivity(client)
+await save_7.click()
+
+//Record the 4th collection
+await moveElementByPercentage(client, driveActivity_leftJoystick1, 70, 70, 70, 10, 6000); //Move robot forward
+await sleep(2000) 
+
+//Click on Add data point to add the end range column value for the 3rd collection
+const add_data_point_click5= await findItemById(client,"android.widget.ImageView","imv_add_point_icon")
+await add_data_point_click5.click()
+await sleep(10000)
+
+//Click on Save to save the end range and column value
+const save_8= await findItemByName(client,"android.widget.TextView","SAVE")
+await save_8.click()
+
+//Click on Save to save the gps waypoint mission
+const save_mission= await findItemById(client,"android.widget.TextView","tv_start_button")
+await save_mission.click()
+var timeEnd = (new Date()).getTime();
+
+if(save_mission !== null)
+{
+
+  total_testcases++;
+  pass_testcases++;
+  testcase_name("TMax","Mission:To check if user can create a gps path and save the waypoint mission","Pass",(((timeEnd-timeStart)% 60000) / 1000).toFixed(2))
+  console.log(colors.yellow("Pass"))
+  }
+  else
+  {
   total_testcases++;
   fail_testcases++;
-    testcase_name("TMax","Mission:To check if the user can click on Compass icon multiple times","Fail",(((timeEnd-timeStart)% 60000) / 1000).toFixed(2))
-    console.log(colors.red("Fail"))
-}
+  testcase_name("TMax","Mission:To check if user can create a gps path and save the waypoint mission","Fail",(((timeEnd-timeStart)% 60000) / 1000).toFixed(2))
+  console.log(colors.red("Fail"))
+  }
 
-  
-//To check if the user can click on the Robot icon multiple times
-var timeStart = (new Date()).getTime();
-for(var ri=0;ri<obj.robot_icon_multiple_clicks;ri++)
-{
-const robot_icon= await findItemById(client,"android.widget.RelativeLayout","rl_follow_robot")
-await robot_icon.click()
-}
-var timeEnd = (new Date()).getTime();
-const robot_icon1= await findItemById(client,"android.widget.RelativeLayout","rl_follow_robot") 
-
-if(robot_icon1 !== null){
-total_testcases++;
-pass_testcases++;
-testcase_name("TMax","Mission:To check if the user can click on the Robot icon multiple times","Pass",(((timeEnd-timeStart)% 60000) / 1000).toFixed(2))
-console.log(colors.yellow("Pass"))
-} else{
+}//end of rtk check if loop
+else{
   total_testcases++;
   fail_testcases++;
-    testcase_name("TMax","Mission:To check if the user can click on the Robot icon multiple times","Fail",(((timeEnd-timeStart)% 60000) / 1000).toFixed(2))
-    console.log(colors.red("Fail"))
+  testcase_name("TMax","Mission:To check if user can create a gps path and save the waypoint mission","Fail",(((timeEnd-timeStart)% 60000) / 1000).toFixed(2))
+  console.log(colors.red("Fail"))
+
+  client.back()
 }
+
+
+
   
   
   
